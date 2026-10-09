@@ -1,0 +1,4 @@
+email,system,account_type
+ana@example.test,Wiki,person
+bruno@example.test,CRM,person
+service@example.test,CI,service
