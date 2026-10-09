@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "access-review-reconciler"
+version = "0.1.0"
+description = "Local CSV access-review reconciliation with human-reviewed findings"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Gustavo Avelino Saraiva Oliveira" }]
+dependencies = []
+
+[project.scripts]
+access-review = "access_review.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
