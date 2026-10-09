@@ -20,7 +20,27 @@ class ReconcileTests(unittest.TestCase):
         self.assertEqual(result["findings"][0]["finding"], "orphan_account")
         self.assertEqual(result["findings"][0]["decision"], "human_review_required")
 
-    def test_flags_duplicate_and_ambiguous_identities(self) -> None:
+    def test_accounts_in_different_systems_are_not_duplicate_records(self) -> None:
+        result = reconcile(
+            [{"email": "a@example.test", "status": "active"}],
+            [
+                {"email": "a@example.test", "system": "Wiki", "account_type": "person"},
+                {"email": "a@example.test", "system": "CRM", "account_type": "person"},
+            ],
+        )
+        self.assertEqual(result["review_required"], 0)
+        self.assertEqual(result["findings"], [])
+
+    def test_flags_duplicate_account_records_and_ambiguous_people(self) -> None:
+        duplicated = reconcile(
+            [{"email": "a@example.test", "status": "active"}],
+            [
+                {"email": "a@example.test", "system": "Wiki", "account_type": "person"},
+                {"email": " A@EXAMPLE.TEST ", "system": "wiki", "account_type": "PERSON"},
+            ],
+        )
+        self.assertEqual([item["finding"] for item in duplicated["findings"]], ["duplicate_account_identity"] * 2)
+
         result = reconcile(
             [
                 {"email": "a@example.test", "status": "active"},
@@ -31,7 +51,7 @@ class ReconcileTests(unittest.TestCase):
                 {"email": "a@example.test", "system": "CRM"},
             ],
         )
-        self.assertEqual([item["finding"] for item in result["findings"]], ["duplicate_account_identity"] * 2)
+        self.assertEqual([item["finding"] for item in result["findings"]], ["ambiguous_person_match"] * 2)
 
         ambiguous = reconcile(
             [

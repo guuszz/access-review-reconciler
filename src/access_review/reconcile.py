@@ -40,15 +40,26 @@ def reconcile(
         row for row in exception_list
         if not _key(row.get("email")) or not row.get("reason", "").strip() or exception_counts[_key(row.get("email"))] > 1
     ]
-    account_counts = Counter(_key(row.get("email")) for row in accounts)
+    # The same person is expected to have accounts in multiple systems. Only
+    # repeated rows for the same system/account type are duplicate inventory
+    # records; email alone is not an account identity across an organization.
+    account_keys = [
+        (
+            _key(row.get("email")),
+            (row.get("system") or "").strip().casefold(),
+            (row.get("account_type") or "").strip().casefold(),
+        )
+        for row in accounts
+    ]
+    account_counts = Counter(account_keys)
     findings: list[dict[str, str]] = []
     exceptions_used: set[str] = set()
-    for row in accounts:
+    for row, account_key in zip(accounts, account_keys):
         email = _key(row.get("email"))
         system = row.get("system", "").strip()
         if not email:
             kind = "missing_account_email"
-        elif account_counts[email] > 1:
+        elif account_counts[account_key] > 1:
             kind = "duplicate_account_identity"
         elif len(active_people[email]) > 1:
             kind = "ambiguous_person_match"

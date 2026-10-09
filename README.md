@@ -10,6 +10,7 @@ O NIST SP 800-53 Rev. 5, controle AC-2(j), prevê revisão de contas conforme um
 
 - Recebe dois CSVs locais: pessoas (`email,name,status`) e contas (`email,system,account_type`).
 - Compara e-mails sem diferenciar maiúsculas/minúsculas e remove espaços externos.
+- Distingue inventários repetidos do mesmo sistema/tipo de conta de contas válidas em sistemas diferentes; endereço de e-mail sozinho não define uma conta única.
 - Sinaliza conta sem pessoa ativa correspondente, correspondência ambígua e e-mail vazio.
 - Não recomenda revogação automática; a saída é uma fila para revisão humana.
 - Usa dados sintéticos de exemplo e não envia dados pela rede.
