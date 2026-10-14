@@ -4,7 +4,7 @@ Pequeno utilitário local para apoiar revisões periódicas de acesso: compara u
 
 ## Problema que aborda
 
-O NIST SP 800-53 Rev. 5, controle AC-2(j), prevê revisão de contas conforme uma frequência definida pela organização ([fonte NIST](https://csrc.nist.gov/CSRC/media/Projects/risk-management/800-53%20Downloads/800-53r5/SP_800-53_v5_1-derived-OSCAL.pdf)). Isso ancora o tema em uma prática de gestão de contas; este protótipo apenas reconcilia duas exportações fictícias e não comprova conformidade. Entrevistas com pessoas que executam revisões ainda são necessárias para validar o fluxo operacional e as regras de uma solução real.
+O NIST SP 800-53 Rev. 5, controle AC-2(j), prevê revisão periódica de contas ([fonte NIST](https://csrc.nist.gov/CSRC/media/Projects/risk-management/800-53%20Downloads/800-53r5/SP_800-53_v5_1-derived-OSCAL.pdf)). A CISA recomenda que proprietários de aplicações e dados revisem e reconciliem periodicamente contas e privilégios ([guia CISA de IAM](https://www.cisa.gov/sites/default/files/2023-12/ESF%20IDENTITY%20AND%20ACCESS%20MANAGEMENT%20RECOMMENDED%20BEST%20PRACTICES%20FOR%20ADMINISTRATORS%20PP-23-0248_508C.pdf)). Isso fundamenta a existência da atividade de gestão de acesso, não a demanda pelo formato deste protótipo: ele apenas reconcilia duas exportações fictícias e não comprova conformidade. Entrevistas com pessoas que executam revisões ainda são necessárias para validar o fluxo operacional e as regras de uma solução real.
 
 ## MVP
 
